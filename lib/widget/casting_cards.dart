@@ -24,17 +24,37 @@ class CastingCards extends StatelessWidget {
         }
 
         final List<Cast> cast = snapshot.data!;
+        if(cast.isNotEmpty){
+          return Container(
+            margin: const EdgeInsets.only(bottom: 30),
+            width: double.infinity,
+            height: 180,
+            child: ListView.builder(
+              itemCount: 10,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (_, index) => _CastCard(cast[index]),
+                
+            ),
+          );
 
-        return Container(
-          margin: const EdgeInsets.only(bottom: 30),
-          width: double.infinity,
-          height: 180,
-          child: ListView.builder(
-            itemCount: 10,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (_, index) =>  _CastCard(cast[index]),
-          ),
-        );
+        } else {
+          return Column(
+            children: [
+              const Text('No se encontro informacion', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+              const SizedBox(height: 20),
+              Container(
+                margin:  const EdgeInsets.only(bottom: 30),
+                child:  FadeInImage(
+                  placeholder: AssetImage('assets/no-image.jpg'),
+                  image: AssetImage('assets/not found.gif'),
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.height * 0.3,
+                  fit: BoxFit.cover,
+                )
+              ),
+            ],
+          );
+        }
       },
     );
   }

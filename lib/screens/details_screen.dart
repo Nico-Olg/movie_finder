@@ -199,9 +199,11 @@ class _Overview extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
+                              enableFeedback: false,
                               iconSize: iconSize,
                               icon: ClipRRect(
-                                borderRadius: BorderRadius.circular(iconSize *0.3),
+                                borderRadius:
+                                    BorderRadius.circular(iconSize * 0.3),
                                 child: FadeInImage(
                                   placeholder:
                                       const AssetImage('assets/no-image.jpg'),
@@ -212,15 +214,7 @@ class _Overview extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              onPressed: () async {
-                                Uri url = Uri.https('www.google.com', '');
-                                
-                                if (await canLaunchUrl(url)) {
-                                  await launchUrl(url);
-                                } else {
-                                  throw 'No se pudo lanzar $url';
-                                }
-                              },
+                              onPressed: () async {},
                             ),
                             SizedBox(
                               width: 5,
