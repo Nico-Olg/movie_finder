@@ -231,28 +231,31 @@ class _Overview extends StatelessWidget {
                 Row(
                   children: [
                     for (var provider in rent)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: IconButton(
-                          icon: FadeInImage(
-                            placeholder:
-                                const AssetImage('assets/no-image.jpg'),
-                            image: NetworkImage(
-                              'https://image.tmdb.org/t/p/w500${provider['logo_path']}',
+                      Row(
+                          children: [
+                            IconButton(
+                              enableFeedback: false,
+                              iconSize: iconSize,
+                              icon: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.circular(iconSize * 0.3),
+                                child: FadeInImage(
+                                  placeholder:
+                                      const AssetImage('assets/no-image.jpg'),
+                                  image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500${provider['logo_path']}',
+                                  ),
+                                  height: 60,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              onPressed: () async {},
                             ),
-                            height: 60,
-                            fit: BoxFit.cover,
-                          ),
-                          onPressed: () async {
-                            const url = 'https://www.google.com';
-                            if (await canLaunchUrl(url as Uri)) {
-                              await launchUrl(url as Uri);
-                            } else {
-                              throw 'No se pudo lanzar $url';
-                            }
-                          },
+                            SizedBox(
+                              width: 5,
+                            )
+                          ],
                         ),
-                      ),
                   ],
                 ),
                 const SizedBox(height: 10),

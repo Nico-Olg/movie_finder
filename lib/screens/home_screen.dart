@@ -10,29 +10,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final moviesProvider = Provider.of<MoviesProvider>(context); // Con esta línea, obtengo mi instancia de moviesProvider
+    final moviesProvider = Provider.of<MoviesProvider>(
+        context); // Con esta línea, obtengo mi instancia de moviesProvider
 
     print(moviesProvider.onDisplayMovies);
 
+      final colorFondo = Color.fromARGB(255, 6, 3, 24);
     return Scaffold(
       body: Stack(
         children: [
-          const Positioned.fill(
-            child: Image(
-              image: AssetImage('assets/fondo.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-              child: Container(
-                color: Colors.black.withOpacity(0),
-              ),
-            ),
+          Container(
+            color: colorFondo,
           ),
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
             child: SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
@@ -66,45 +58,38 @@ class AppBarCustom extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-         Text(
+        Text(
           'Peliculas',
           style: TextStyle(
             fontSize: 40,
-            color: Colors.white54,
+            color: getLighterColor(Color.fromARGB(255, 6, 3, 24), 0.25),
             fontStyle: FontStyle.italic,
-            shadows: [
-              Shadow(
-                color: Colors.redAccent.shade700,
-                blurRadius: 20,
-                offset: const Offset(0, 0),
-              ),
-            ],
+            fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(
           width: 50,
         ),
         FloatingActionButton(
-          backgroundColor: Colors.transparent,
-          onPressed: () => showSearch(context: context, delegate: MovieSearchDelegate()),
+          backgroundColor: getLighterColor(Color.fromARGB(255, 6, 3, 24), 0.05),
+          onPressed: () =>
+              showSearch(context: context, delegate: MovieSearchDelegate()),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(200),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.red.shade900,
+                  color: getLighterColor(Color.fromARGB(255, 6, 3, 24), 0.25),
                   blurStyle: BlurStyle.outer,
                   spreadRadius: 12,
                   blurRadius: 10,
-                  offset: Offset(0, 0),
+                  offset: const Offset(0, 0),
                 ),
               ],
             ),
@@ -116,5 +101,14 @@ class AppBarCustom extends StatelessWidget {
         ),
       ],
     );
+  }
+   Color getLighterColor(Color color, double amount) {
+    assert(amount >= 0 && amount <= 1, 'amount must be between 0 and 1');
+
+    final int r = color.red + ((255 - color.red) * amount).round();
+    final int g = color.green + ((255 - color.green) * amount).round();
+    final int b = color.blue + ((255 - color.blue) * amount).round();
+
+    return Color.fromARGB(color.alpha, r, g, b);
   }
 }
